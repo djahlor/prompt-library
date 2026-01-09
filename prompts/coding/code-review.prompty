@@ -1,0 +1,52 @@
+---
+name: code-review
+description: Expert code review focusing on security, performance, and quality
+authors: [d.andrews]
+version: 1.0.0
+category: coding
+model:
+  api: chat
+  parameters:
+    max_tokens: 4096
+    temperature: 0.3
+tags: [coding, review, security, quality]
+fragments:
+  - personas/senior-engineer
+  - constraints/minimal-changes
+variables:
+  - language
+  - code
+  - context
+sample:
+  language: python
+  code: "def add(a, b): return a + b"
+  context: "Utility function for calculator app"
+---
+
+{% include 'fragments/personas/senior-engineer.md' %}
+
+---
+
+## Task
+
+Review the following {{language}} code. Context: {{context}}
+
+Focus on:
+1. **Security** - Injection vulnerabilities, improper input validation, exposed secrets
+2. **Performance** - Algorithmic complexity, unnecessary allocations, N+1 queries
+3. **Quality** - Naming, complexity, error handling, edge cases
+4. **Bugs** - Logic errors, off-by-one, null references
+
+```{{language}}
+{{code}}
+```
+
+## Response Format
+
+For each issue found:
+- **Severity**: Critical / High / Medium / Low
+- **Location**: Line number or function name
+- **Issue**: What's wrong
+- **Fix**: How to resolve it
+
+If the code is solid, say so briefly. Don't invent issues.

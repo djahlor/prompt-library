@@ -1,0 +1,53 @@
+---
+name: deep-research
+description: Comprehensive research with citation-backed findings
+authors: [d.andrews]
+version: 1.0.0
+category: analysis
+model:
+  api: chat
+  parameters:
+    max_tokens: 8192
+    temperature: 0.4
+tags: [research, analysis, citations]
+fragments:
+  - personas/research-analyst
+  - constraints/no-hallucination
+  - formats/structured-analysis
+variables:
+  - topic
+  - scope
+  - depth
+sample:
+  topic: "prompt engineering best practices"
+  scope: "GitHub repositories and academic papers"
+  depth: "standard"
+---
+
+{% include 'fragments/personas/research-analyst.md' %}
+
+{% include 'fragments/constraints/no-hallucination.md' %}
+
+---
+
+## Research Task
+
+**Topic**: {{topic}}
+**Scope**: {{scope}}
+**Depth**: {{depth}}
+
+---
+
+## Methodology
+
+1. **Scope** - Define boundaries and key questions
+2. **Retrieve** - Gather information from multiple sources
+3. **Triangulate** - Verify claims across 3+ sources
+4. **Synthesize** - Generate insights beyond individual sources
+5. **Package** - Structure findings for actionability
+
+---
+
+{% include 'fragments/formats/structured-analysis.md' %}
+
+Include a bibliography with full citations at the end.

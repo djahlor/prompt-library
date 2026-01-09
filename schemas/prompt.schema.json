@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/d-andrews/prompt-library/schemas/prompt.schema.json",
+  "title": "Prompt Schema",
+  "description": "Schema for prompt library entries following Prompty specification",
+  "type": "object",
+  "required": ["name", "description", "version"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique identifier for the prompt",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief explanation of the prompt's purpose",
+      "maxLength": 500
+    },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of prompt authors"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version (X.Y.Z)",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "api": {
+          "type": "string",
+          "enum": ["chat", "completion"],
+          "default": "chat"
+        },
+        "provider": {
+          "type": "string",
+          "enum": ["anthropic", "openai", "google", "local"],
+          "description": "Target LLM provider"
+        },
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "max_tokens": { "type": "integer", "minimum": 1 },
+            "temperature": { "type": "number", "minimum": 0, "maximum": 2 },
+            "top_p": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Searchable tags for categorization"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["coding", "writing", "analysis", "agents", "meta"],
+      "description": "Primary category"
+    },
+    "fragments": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Referenced fragment paths"
+    },
+    "variables": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Required template variables"
+    },
+    "sample": {
+      "type": "object",
+      "description": "Sample variable values for testing"
+    }
+  }
+}
